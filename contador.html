@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contadores</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #00bfff; /* azul eléctrico */
+      color: white;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .contador {
+      font-size: 3em;
+      margin: 20px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="contador1" class="contador">Cargando...</div>
+  <div id="contador2" class="contador">Cargando...</div>
+
+  <script>
+    const inicio1 = new Date(2024, 11, 16, 18, 47, 0); // 16 diciembre 2024 a las 18:47
+    const inicio2 = new Date(2025, 0, 7, 18, 47, 0);   // 7 enero 2025 a las 18:47
+
+    function actualizarContador(inicio, elementoId) {
+      const ahora = new Date();
+      const diferencia = ahora - inicio;
+      const elemento = document.getElementById(elementoId);
+
+      if (diferencia < 0) {
+        elemento.textContent = "La fecha aún no ha llegado.";
+        return;
+      }
+
+      const segundosTotales = Math.floor(diferencia / 1000);
+      const dias = Math.floor(segundosTotales / (60 * 60 * 24));
+      const horas = Math.floor((segundosTotales % (60 * 60 * 24)) / (60 * 60));
+      const minutos = Math.floor((segundosTotales % (60 * 60)) / 60);
+      const segundos = segundosTotales % 60;
+
+      elemento.textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    }
+
+    function iniciarContadores() {
+      actualizarContador(inicio1, "contador1");
+      actualizarContador(inicio2, "contador2");
+    }
+
+    iniciarContadores();
+    setInterval(iniciarContadores, 1000);
+  </script>
+</body>
+</html>
